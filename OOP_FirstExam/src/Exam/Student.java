@@ -41,7 +41,7 @@ public class Student {
 	}
 	public void setStudentFullname(String studentFullname) {
 		if(studentFullname == null || studentFullname.isEmpty()) {
-			studentFullname = "Empry";
+			studentFullname = "Empty";
 		}
 		this.studentFullname = studentFullname;
 	}

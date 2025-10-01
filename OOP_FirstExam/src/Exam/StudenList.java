@@ -26,7 +26,7 @@ public class StudenList {
 			throw new IllegalArgumentException("Mã số sinh viên đã tồn tại.");
 		}
 		if(size >= list.length) {
-			Arrays.copyOf(list, (int)(size * 1.50));
+			list = Arrays.copyOf(list, (int)(size * 1.50));
 		}
 		list[size++] = newStudent;
 		return newStudent;
@@ -34,7 +34,7 @@ public class StudenList {
 
 	public int findByCode(String studentCode) {
 		for (int i = 0; i < size; i++) {
-			if(list[i].getStudentCode() == studentCode) {
+			if(list[i].getStudentCode().equals(studentCode)) {
 				return i;
 			}
 		}
@@ -63,19 +63,20 @@ public class StudenList {
 	}
 	
 	public Student removeStudent(String studentCode) {
-		int index = findByCode(studentCode);
-		if(index < 0) {
-			for (int i = index; i < size - 1; i++) {
-				list[i] = list[i + 1];
-			}
-			return list[index];
-		}else {
-			return null;
-		}
+	    int index = findByCode(studentCode);
+	    if(index >= 0) {
+	        Student removed = list[index];
+	        for (int i = index; i < size - 1; i++) {
+	            list[i] = list[i + 1];
+	        }
+	        list[--size] = null;
+	        return removed;
+	    } else {
+	        return null;
+	    }
 	}
-	
-	@SuppressWarnings("unused")
-	private void sortByAverageScore() {
+
+	public void sortByAverageScore() {
 		for (int i = 0; i < size - 1; i++) {
 			for (int j = i; j < size; j++) {
 				if(list[i].getAvgScore() > list[j].getAvgScore()) {
